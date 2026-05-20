@@ -1,7 +1,8 @@
 package streaming;
 
-public interface TransmisionListener {
-    void onTransmisionIniciada(Transmision transmision);
-    void onUsuarioUnido(Transmision transmision, Usuario usuario);
-    void onMensajeEnviado(Transmision transmision, Mensaje mensaje);
+public abstract class TransmisionListener {
+    public void onTransmisionIniciada(Transmision transmision) {}
+    public void onUsuarioUnido(Transmision transmision, Usuario usuario) {}
+    public void onMensajeEnviado(Transmision transmision, Mensaje mensaje) {}
+    public void onTransmisionFinalizada(Transmision transmision) {}
 }

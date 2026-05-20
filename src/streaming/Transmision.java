@@ -70,10 +70,38 @@ public class Transmision {
         return mensajes;
     }
     
+    public void mostrarEstadisticas() {
+        System.out.println("\n=== ESTADÍSTICAS DE LA TRANSMISIÓN ===");
+        System.out.println("Título: " + this.titulo);
+        System.out.println("Profesor: " + this.profesor.getNombre());
+        System.out.println("Total de asistentes: " + this.asistentes.size());
+        System.out.println("Total de mensajes: " + this.mensajes.size());
+
+        int estudiantes = 0;
+        for (Usuario u : this.asistentes) {
+            if ("estudiante".equals(u.getRol())) {
+                estudiantes++;
+            }
+        }
+        System.out.println("Estudiantes conectados: " + estudiantes);
+
+        System.out.println("\n=== MENSAJES ===");
+        for (Mensaje m : this.mensajes) {
+            System.out.println(m.getUsuario().getNombre() + ": " + m.getTexto());
+        }
+    }
+
+    public void mostrarAsistentes() {
+        System.out.println("\n=== ASISTENTES ===");
+        for (Usuario u : this.asistentes) {
+            System.out.println("- " + u.getNombre() + " (" + u.getRol() + ")");
+        }
+    }
+    
     public void finalizarTransmision() {
         activa = false;
         for (TransmisionListener listener : listeners) {
-            System.out.println("[EVENTO] Transmisión finalizada");
+            listener.onTransmisionFinalizada(this);
         }
     }
 }

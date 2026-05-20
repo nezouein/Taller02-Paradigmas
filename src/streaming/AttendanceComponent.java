@@ -1,7 +1,6 @@
 package streaming;
 
-public class AttendanceComponent implements TransmisionListener {
-
+public class AttendanceComponent extends TransmisionListener {
     @Override
     public void onTransmisionIniciada(Transmision transmision) {
         System.out.println("[ASISTENCIA] Iniciando registro de asistencia para: " + transmision.getTitulo());

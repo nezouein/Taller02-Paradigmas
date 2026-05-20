@@ -41,9 +41,9 @@ public class Main {
         transmision.enviarMensaje(ayudante, "Sí, se grabará la sesión");
         transmision.enviarMensaje(estudiante3, "Gracias por la aclaración");
         
-        // Mostrar estadísticas usando Stream API
+        // Mostrar estadísticas (delegado a Transmision)
         System.out.println();
-        StatsService.mostrarEstadisticas(transmision);
+        transmision.mostrarEstadisticas();
         
         // Filtrar y mostrar solo estudiantes
         System.out.println();
