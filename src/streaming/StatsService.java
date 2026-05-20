@@ -1,32 +1,41 @@
 package streaming;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class StatsService {
-    
-    public static void mostrarEstadisticas(Transmision transmision) {
+
+    public void instanceMostrarEstadisticas(Transmision transmision) {
         System.out.println("\n=== ESTADÍSTICAS DE LA TRANSMISIÓN ===");
         System.out.println("Título: " + transmision.getTitulo());
         System.out.println("Profesor: " + transmision.getProfesor().getNombre());
         System.out.println("Total de asistentes: " + transmision.getAsistentes().size());
         System.out.println("Total de mensajes: " + transmision.getMensajes().size());
-        
-        long estudiantes = transmision.getAsistentes().stream()
-                .filter(u -> "estudiante".equals(u.getRol()))
-                .count();
+
+        int estudiantes = 0;
+        for (Usuario u : transmision.getAsistentes()) {
+            if ("estudiante".equals(u.getRol())) {
+                estudiantes++;
+            }
+        }
         System.out.println("Estudiantes conectados: " + estudiantes);
-        
+
         System.out.println("\n=== MENSAJES ===");
-        transmision.getMensajes().forEach(m -> 
-            System.out.println(m.getUsuario().getNombre() + ": " + m.getTexto())
-        );
+        for (Mensaje m : transmision.getMensajes()) {
+            System.out.println(m.getUsuario().getNombre() + ": " + m.getTexto());
+        }
     }
-    
-    public static void mostrarAsistentes(Transmision transmision) {
+
+    public void instanceMostrarAsistentes(Transmision transmision) {
         System.out.println("\n=== ASISTENTES ===");
-        transmision.getAsistentes().forEach(u -> 
-            System.out.println("- " + u.getNombre() + " (" + u.getRol() + ")")
-        );
+        for (Usuario u : transmision.getAsistentes()) {
+            System.out.println("- " + u.getNombre() + " (" + u.getRol() + ")");
+        }
+    }
+
+    // Static wrappers to preserve original API (Main uses static calls).
+    public static void mostrarEstadisticas(Transmision transmision) {
+        new StatsService().instanceMostrarEstadisticas(transmision);
+    }
+
+    public static void mostrarAsistentes(Transmision transmision) {
+        new StatsService().instanceMostrarAsistentes(transmision);
     }
 }

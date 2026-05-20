@@ -1,6 +1,6 @@
 package streaming;
 
-public class ChatComponent implements TransmisionListener {
+public class ChatComponent extends TransmisionListener {
 
     @Override
     public void onTransmisionIniciada(Transmision transmision) {

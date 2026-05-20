@@ -1,7 +1,6 @@
 package streaming;
 
-public class NotificationComponent implements TransmisionListener {
-
+public class NotificationComponent extends TransmisionListener {
     @Override
     public void onTransmisionIniciada(Transmision transmision) {
         System.out.println("[NOTIFICACIÓN] Inició la clase: " + transmision.getTitulo());
