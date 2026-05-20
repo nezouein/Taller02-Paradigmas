@@ -8,12 +8,18 @@ package streaming;
  *
  * @author djurado
  */
-class Usuario {
+public class Usuario {
+
+    public enum Rol {
+        PROFESOR,
+        AYUDANTE,
+        ESTUDIANTE
+    }
 
     private String nombre;
-    private String rol;
+    private Rol rol;
 
-    public Usuario(String nombre, String rol) {
+    public Usuario(String nombre, Rol rol) {
         this.nombre = nombre;
         this.rol = rol;
     }
@@ -22,8 +28,19 @@ class Usuario {
         return nombre;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
 
+    public boolean esEstudiante() {
+        return rol == Rol.ESTUDIANTE;
+    }
+
+    public boolean esProfesor() {
+        return rol == Rol.PROFESOR;
+    }
+
+    public boolean esAyudante() {
+        return rol == Rol.AYUDANTE;
+    }
 }

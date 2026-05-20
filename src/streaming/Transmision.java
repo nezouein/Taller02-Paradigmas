@@ -50,6 +50,52 @@ public class Transmision {
         }
     }
 
+    public List<Usuario> obtenerEstudiantes() {
+        List<Usuario> estudiantes = new ArrayList<>();
+        for (Usuario usuario : asistentes) {
+            if (usuario.esEstudiante()) {
+                estudiantes.add(usuario);
+            }
+        }
+        return estudiantes;
+    }
+
+    public List<String> obtenerNombresAsistentes() {
+        List<String> nombres = new ArrayList<>();
+        for (Usuario usuario : asistentes) {
+            nombres.add(usuario.getNombre());
+        }
+        return nombres;
+    }
+
+    public void mostrarEstadisticas() {
+        System.out.println("\n=== ESTADÍSTICAS DE LA TRANSMISIÓN ===");
+        System.out.println("Título: " + titulo);
+        System.out.println("Profesor: " + profesor.getNombre());
+        System.out.println("Total de asistentes: " + asistentes.size());
+        System.out.println("Total de mensajes: " + mensajes.size());
+
+        int estudiantesConectados = 0;
+        for (Usuario usuario : asistentes) {
+            if (usuario.esEstudiante()) {
+                estudiantesConectados++;
+            }
+        }
+        System.out.println("Estudiantes conectados: " + estudiantesConectados);
+
+        System.out.println("\n=== MENSAJES ===");
+        for (Mensaje mensaje : mensajes) {
+            System.out.println(mensaje.getUsuario().getNombre() + ": " + mensaje.getTexto());
+        }
+    }
+
+    public void mostrarAsistentes() {
+        System.out.println("\n=== ASISTENTES ===");
+        for (Usuario usuario : asistentes) {
+            System.out.println("- " + usuario.getNombre() + " (" + usuario.getRol() + ")");
+        }
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -72,8 +118,6 @@ public class Transmision {
     
     public void finalizarTransmision() {
         activa = false;
-        for (TransmisionListener listener : listeners) {
-            System.out.println("[EVENTO] Transmisión finalizada");
-        }
+        System.out.println("[EVENTO] Transmisión finalizada");
     }
 }

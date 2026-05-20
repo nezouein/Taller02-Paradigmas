@@ -1,7 +1,6 @@
 package streaming;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,11 +8,11 @@ public class Main {
         System.out.println();
         
         // Crear usuarios
-        Usuario profesora = new Usuario("Ana", "profesor");
-        Usuario ayudante = new Usuario("Luis", "ayudante");
-        Usuario estudiante1 = new Usuario("Marta", "estudiante");
-        Usuario estudiante2 = new Usuario("Carlos", "estudiante");
-        Usuario estudiante3 = new Usuario("Juan", "estudiante");
+        Usuario profesora = new Usuario("Ana", Usuario.Rol.PROFESOR);
+        Usuario ayudante = new Usuario("Luis", Usuario.Rol.AYUDANTE);
+        Usuario estudiante1 = new Usuario("Marta", Usuario.Rol.ESTUDIANTE);
+        Usuario estudiante2 = new Usuario("Carlos", Usuario.Rol.ESTUDIANTE);
+        Usuario estudiante3 = new Usuario("Juan", Usuario.Rol.ESTUDIANTE);
 
         // Crear transmisión
         Transmision transmision = new Transmision("Clase de Paradigmas de Programación", profesora);
@@ -41,25 +40,21 @@ public class Main {
         transmision.enviarMensaje(ayudante, "Sí, se grabará la sesión");
         transmision.enviarMensaje(estudiante3, "Gracias por la aclaración");
         
-        // Mostrar estadísticas usando Stream API
+        // Mostrar estadísticas usando métodos de Transmision
         System.out.println();
-        StatsService.mostrarEstadisticas(transmision);
+        transmision.mostrarEstadisticas();
         
         // Filtrar y mostrar solo estudiantes
         System.out.println();
-        List<Usuario> estudiantes = transmision.getAsistentes()
-                .stream()
-                .filter(u -> "estudiante".equals(u.getRol()))
-                .collect(Collectors.toList());
+        List<Usuario> estudiantes = transmision.obtenerEstudiantes();
         
         System.out.println("\n=== ESTUDIANTES ASISTENTES ===");
-        estudiantes.forEach(e -> System.out.println("- " + e.getNombre()));
+        for (Usuario e : estudiantes) {
+            System.out.println("- " + e.getNombre());
+        }
         
         // Obtener nombres de todos los asistentes
-        List<String> nombres = transmision.getAsistentes()
-                .stream()
-                .map(Usuario::getNombre)
-                .collect(Collectors.toList());
+        List<String> nombres = transmision.obtenerNombresAsistentes();
         
         System.out.println("\n=== RESUMEN ===");
         System.out.println("Total de estudiantes: " + estudiantes.size());
